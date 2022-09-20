@@ -1,3 +1,3 @@
-Tasks during Eltex school\n
+Tasks during Eltex school  
 1.
 2.
