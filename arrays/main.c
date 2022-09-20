@@ -69,11 +69,10 @@ fourth_task(){
 }
 
 int main() {
-
     first_task();
     second_task();
+
     third_task();
     fourth_task();
-
     return 0;
 }
