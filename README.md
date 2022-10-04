@@ -8,3 +8,4 @@ Tasks during Eltex school
 7. shop (threads)  
 8. interpreter (pipes/fork)  
 9. chat_room_mq (System V mq)  
+10. sockets (server-client 4 schemes, multicast, broadcast)
