@@ -133,11 +133,12 @@ void link_header_fill(link_header *header){
 }
 
 short CRC16(char* buf){
-    int csum=0;
-    short* ptr=(short*)buf;
+
+    unsigned int csum=0;
+    unsigned short* ptr=(short*)buf;
     for(int i=0;i<10;i++){
         csum+=*ptr;
-        printf("i: %x\n",csum);
+//        printf("%i: %x\n", i+1, csum);
         ptr++;
     }
     while((csum>>16)!=0){
@@ -145,12 +146,13 @@ short CRC16(char* buf){
         csum=(csum&0xFFFF)+tmp;
     }
     csum=~csum;
-    printf("\nSum = %x\n",csum);
+//    printf("\nSum = %d\n",csum);
+
     return csum;
 }
 
 void ip_header_fill(ip_header *header){
-    //memset(header,0, sizeof(*header));
+    memset(header,0, sizeof(*header));
     header->version_IHL = 69;
     header->tos = 0;
     header->total_length = htons(IP_HEADER_SIZE+UDP_HEADER_SIZE+TEXT_SIZE);
@@ -160,7 +162,9 @@ void ip_header_fill(ip_header *header){
     header->protocol = 17;
     header->source_ip = inet_addr("192.168.0.105");
     header->dest_ip = inet_addr("192.168.0.9");
-    header->checksum = htons(CRC16((char *) &header));
+    header->checksum = 0;
+    header->checksum = CRC16((char *) header);
+
 
 }
 
@@ -184,7 +188,7 @@ void header_strcat(char *link_header, char *header_udp, char *header_ip, char *b
         buff[j]=message[j-IP_HEADER_SIZE-UDP_HEADER_SIZE-ETH_HEADER_SIZE];
     }
 
-    for (int i=ETH_HEADER_SIZE; i<ETH_HEADER_SIZE+IP_HEADER_SIZE; i++){
-        printf("%x\n",buff[i]);
-    }
+//    for (int i=ETH_HEADER_SIZE; i<ETH_HEADER_SIZE+IP_HEADER_SIZE; i++){
+//        printf("%x\n",buff[i]);
+//    }
 }
